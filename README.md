@@ -2,4 +2,4 @@
 
 List of Slasher Villains
 
-List of anatagonists in top slasher horror filmsgit 
+List of anatagonists in top slasher horror films. 

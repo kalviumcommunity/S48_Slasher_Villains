@@ -3,12 +3,12 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/ping', (req, res) => {
+app.get('/ping', (res, req) => {
   res.send('pong');
 });
 
 // Handle undefined routes
-app.use((req, res) => res.status(404).send('Not found'));
+// app.use((req, res) => res.status(404).send('Not found'));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

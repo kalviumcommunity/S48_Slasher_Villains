@@ -3,7 +3,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/ping', (res, req) => {
+app.get('/ping', (req, res) => {
   res.send('pong');
 });
 

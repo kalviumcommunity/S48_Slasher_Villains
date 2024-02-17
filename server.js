@@ -3,7 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = 'mongodb+srv://anavik:AnaviK@Kalvium@2024@slashervillains.kvws8y6.mongodb.net/';
+const MONGODB_URI = 'mongodb+srv://anavik:<password>@slashervillains.kvws8y6.mongodb.net/';
 
 MongoClient.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   if (err) {

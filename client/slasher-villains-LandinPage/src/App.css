@@ -1,0 +1,14 @@
+body{
+  background-color: rgb(33, 33, 33);
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+header {
+  text-align: center;
+}

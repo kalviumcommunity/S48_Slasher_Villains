@@ -1,12 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose'); 
 const routes = require('./routes');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// MongoDB connection URI
+const mongoURI = 'mongodb+srv://anavik:<password>@slashervillains.kvws8y6.mongodb.net/'; // Replace with your actual MongoDB URI
+
+// MongoDB connection
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error:', err));
+
 app.get('/', (req, res) => {
-  res.send("pong");
+  const dbStatus = mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected';
+  res.send(`Database Connection Status: ${dbStatus}`);
 });
 
 // Middleware for parsing JSON request body

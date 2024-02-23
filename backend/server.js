@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // MongoDB connection URI
-const mongoURI = 'mongodb+srv://anavik:<password>@slashervillains.kvws8y6.mongodb.net/'; // Replace with your actual MongoDB URI
+const mongoURI = 'mongodb+srv://anavik:<password>@slashervillains.kvws8y6.mongodb.net/';
 
 // MongoDB connection
 mongoose.connect(mongoURI, {

@@ -1,14 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+
 body{
-  background-color: rgb(33, 33, 33);
+  background-color: rgb(0, 0, 0);
+  color: white;
 }
 
-.App {
+.App{
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 100vh;
+  font-family: "Metal Mania", system-ui;
 }
 
-header {
+header{
   text-align: center;
+}
+
+h1{
+  letter-spacing: 3px;
+  font-size: 70px;
+  margin: none;
+}
+
+p{
+  letter-spacing: 1px;
+  font-size: 25px;
+}
+
+.buttons{
+  margin-top: 50px;
+}
+
+button{
+  margin: 0 10px; 
+  padding: 10px 20px;
+  font-size: 16px; 
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover{
+  background-color: black;
+  color: white;
+  border: 1px solid whitesmoke;
+}
+
+.login{
+  background-color: #727272; /* Change to desired color */
+  color: rgb(0, 0, 0);
+  border: none;
+}
+
+.signup{
+  background-color: #727272; /* Change to desired color */
+  color: rgb(0, 0, 0);
+  border: none;
 }

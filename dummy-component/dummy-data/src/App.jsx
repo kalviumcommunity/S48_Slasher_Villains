@@ -1,5 +1,5 @@
 import React from 'react';
-import SlasherVillainComponent from './SlasherVillainComponent';
+import SlasherVillainComponent from './components/slashervillains';
 
 const App = () => {
   const slasherVillainsData = [

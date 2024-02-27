@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
 
 body{
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(220, 194, 194);
   color: white;
 }
 
@@ -20,11 +20,13 @@ h1{
   letter-spacing: 3px;
   font-size: 70px;
   margin: none;
+  font-family: "Metal Mania", system-ui;
 }
 
 p{
   letter-spacing: 1px;
   font-size: 25px;
+  font-family: "Metal Mania", system-ui;
 }
 
 .buttons{

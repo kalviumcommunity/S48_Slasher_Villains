@@ -1,0 +1,42 @@
+/* AddEntity.css */
+.add-entity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+.add-entity h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+.add-entity form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+.add-entity input,
+.add-entity textarea {
+    width: 300px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+.add-entity button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #8B0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+.add-entity button:hover {
+    background-color: #6A0000;
+  }
+  

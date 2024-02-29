@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
+import AddEntity from './AddEntity';
 import axios from 'axios';
 import './Landing.css'; // Import your CSS file here if needed
 
@@ -40,9 +41,11 @@ function Landing() {
               <p>Motivation Background: {villain.motivation_background} </p>
               <p>Kill Count: {villain.kill_count}+ </p>
               <p>Weakness: {villain.weakness}</p>
-
             </div>
           ))}
+          <div className="add">
+          <Link to="/add-entity" className="add-entity-btn">Add New Entity</Link>
+          </div>
         </div>
     </div>
   );

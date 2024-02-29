@@ -7,7 +7,7 @@ const SlasherVillainsSchema = new mongoose.Schema({
     weapons: Array,
     modus_operandi: String,
     motivation_background: String,
-    kill_count: String,
+    kill_count: Number,
     weakness: String
 })
 

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import './Signup.css'
 
-export default function App() {
+export default function Signup() {
 
   const [field, setField] = useState({
     firstName: "",

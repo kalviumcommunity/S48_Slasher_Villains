@@ -1,32 +1,30 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose'); 
-const routes = require('./routes');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const SlasherVillainsModel = require('./models/slasher_villains');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3005;
+const mongoURI = 'mongodb+srv://anavik:AnaviK%40Kalvium%402024@slashervillains.kvws8y6.mongodb.net/slasher_?retryWrites=true&w=majority&appName=SlasherVillains';
 
-// MongoDB connection URI
-const mongoURI = 'mongodb+srv://anavik:<password>@slashervillains.kvws8y6.mongodb.net/';
+app.use(cors());
+app.use(express.json());
 
-// MongoDB connection
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+}).then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-app.get('/', (req, res) => {
-  const dbStatus = mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected';
-  res.send(`Database Connection Status: ${dbStatus}`);
+app.get('/slashervillains', async (req, res) => {
+  await SlasherVillainsModel.find()
+   .then(slasherVillains => res.json(slasherVillains))
+     .catch(err => res.status(500).json(err));
 });
 
-// Middleware for parsing JSON request body
-app.use(bodyParser.json());
-
-// Use the combined routes and handlers
-app.use('/', routes);
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
+// });
 
 if (require.main === module) {
   app.listen(port, () => {

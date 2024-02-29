@@ -1,0 +1,56 @@
+/* Login.css */
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.form-container {
+  width: 360px;
+  background-color: rgb(84, 84, 84);
+  margin: auto;
+  margin-top: 70px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  padding: 10px;
+  border: 2px solid #797979;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.success-message {
+  font-family: "Roboto", sans-serif;
+  background-color: #438bf7;
+  padding: 15px;
+  color: white;
+}
+
+.form-field {
+  margin: 10px 0 10px 0;
+  padding: 15px;
+  font-size: 16px;
+  border: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+span {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: red;
+  margin-bottom: 15px;
+}
+
+input {
+  background: #f2f2f2;
+}
+
+.form-field-button {
+  background: rgb(169, 0, 0);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  border: none;
+}
+
+.form-field-button:hover {
+  background: #8B0000;
+}

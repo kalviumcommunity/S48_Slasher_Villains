@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -17,14 +18,24 @@ mongoose.connect(mongoURI, {
   .catch(err => console.error('MongoDB connection error:', err));
 
 app.get('/slashervillains', async (req, res) => {
-  await SlasherVillainsModel.find()
-   .then(slasherVillains => res.json(slasherVillains))
-     .catch(err => res.status(500).json(err));
+  try {
+    const slasherVillains = await SlasherVillainsModel.find();
+    res.json(slasherVillains);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
-// });
+app.post('/slashervillains', async (req, res) => {
+  try {
+    const newEntity = await SlasherVillainsModel.create(req.body);
+    res.status(201).json(newEntity);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+// Handle other routes or serve frontend files if needed
 
 if (require.main === module) {
   app.listen(port, () => {

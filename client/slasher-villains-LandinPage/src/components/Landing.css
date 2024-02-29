@@ -52,7 +52,7 @@ p {
   margin-right: 20px;
 }
 
-button, .signup, .login {
+button, .signup, .login, .add-entity-btn {
   margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
@@ -64,22 +64,29 @@ button, .signup, .login {
   font-family: "Metal Mania", system-ui;
 }
 
-button:hover, .signup:hover, .login:hover {
+button:hover, .signup:hover, .login:hover, .add-entity-btn:hover {
   background-color:#8B0000;
   color: white;
 }
 
-.login {
-  background-color: #727272; /* Change to desired color */
+.login, .signup, .add-entity-btn {
+  background-color: #ffffff; /* Change to desired color */
   color: rgb(0, 0, 0);
   border: none;
 }
 
-.signup {
-  background-color: #727272; /* Change to desired cyolor */
-  color: rgb(0, 0, 0);
-  border: none;
+.add-entity-btn{
+  width: 100px;
+  display: flex;
+  justify-content: center;
 }
+
+.add{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
 .mongo-data{
   border: 2px solid white;
   margin: 20px;

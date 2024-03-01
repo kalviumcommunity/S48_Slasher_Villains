@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -30,6 +29,24 @@ app.post('/slashervillains', async (req, res) => {
   try {
     const newEntity = await SlasherVillainsModel.create(req.body);
     res.status(201).json(newEntity);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+app.put('/slashervillains/:id', async (req, res) => {
+  try {
+    const updatedEntity = await SlasherVillainsModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedEntity);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+app.delete('/slashervillains/:id', async (req, res) => {
+  try {
+    await SlasherVillainsModel.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Entity deleted successfully' });
   } catch (err) {
     res.status(400).json(err);
   }

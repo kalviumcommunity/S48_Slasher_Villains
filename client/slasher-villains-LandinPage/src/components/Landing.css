@@ -52,7 +52,7 @@ p {
   margin-right: 20px;
 }
 
-button, .signup, .login, .add-entity-btn {
+button, .signup, .login, .add-entity-btn, .update-button {
   margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
@@ -62,21 +62,26 @@ button, .signup, .login, .add-entity-btn {
   cursor: pointer; /* Change cursor on hover */
   display: inline-block; /* Ensure link behaves like a block element */
   font-family: "Metal Mania", system-ui;
-}
-
-button:hover, .signup:hover, .login:hover, .add-entity-btn:hover {
-  background-color:#8B0000;
-  color: white;
-}
-
-.login, .signup, .add-entity-btn {
-  background-color: #ffffff; /* Change to desired color */
   color: rgb(0, 0, 0);
   border: none;
 }
 
+button:hover, .signup:hover, .login:hover, .add-entity-btn:hover, .update-button:hover {
+  background-color:#8B0000;
+  color: white;
+}
+
 .add-entity-btn{
   width: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.update-button, .delete-btn{
+  margin-bottom: 10px;
+}
+
+.delete-update{
   display: flex;
   justify-content: center;
 }

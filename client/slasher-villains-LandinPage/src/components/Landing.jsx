@@ -40,12 +40,8 @@ function Landing() {
             <div className="mongo-data" key={villain._id}>
               <p className='name'>Name:  {villain.name} </p>
               <p>Movies:  {villain.movies.join(', ')}</p>
-              <p>Description: {villain.description}</p>
-              <p>Weapons: {villain.weapons.join(', ')}</p>
-              <p>Modus Operandi:  {villain.modus_operandi} </p>
               <p>Motivation Background: {villain.motivation_background} </p>
-              <p>Kill Count: {villain.kill_count}+ </p>
-              <p>Weakness: {villain.weakness}</p>
+              <p>Kill Count: {villain.kill_count} </p>
               <div className="delete-update">
                 <button onClick={() => handleDelete(villain._id)} className='delete-btn'>Delete</button>
                 <Link to={`/update-entity/${villain._id}`} className="update-button">Update</Link>

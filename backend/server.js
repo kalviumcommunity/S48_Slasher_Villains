@@ -1,7 +1,7 @@
+const Joi = require('joi'); // Import Joi for validation
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Joi = require('joi'); // Import Joi for validation
 const SlasherVillainsModel = require('./models/slasher_villains');
 
 const app = express();
@@ -21,12 +21,8 @@ mongoose.connect(mongoURI, {
 const createEntitySchema = Joi.object({
   name: Joi.string().required(),
   movies: Joi.array().items(Joi.string()).required(),
-  description: Joi.string().required(),
-  weapons: Joi.array().items(Joi.string()).required(),
-  modus_operandi: Joi.string().required(),
   motivation_background: Joi.string().required(),
-  kill_count: Joi.number().integer().min(0).required(),
-  weakness: Joi.string().required()
+  kill_count: Joi.number().integer().min(0).required()
 });
 
 app.get('/slashervillains', async (req, res) => {
@@ -47,7 +43,7 @@ app.post('/slashervillains', async (req, res) => {
   }
 });
 
-app.put('/slashervillains', async (req, res) => {
+app.put('/slashervillains/:id', async (req, res) => {
   try {
     const updatedEntity = await SlasherVillainsModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedEntity);
@@ -56,7 +52,7 @@ app.put('/slashervillains', async (req, res) => {
   }
 });
 
-app.delete('/slashervillains', async (req, res) => {
+app.delete('/slashervillains/:id', async (req, res) => {
   try {
     await SlasherVillainsModel.findByIdAndDelete(req.params.id);
     res.json({ message: 'Entity deleted successfully' });

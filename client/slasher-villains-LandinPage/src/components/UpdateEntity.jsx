@@ -8,12 +8,8 @@ function UpdateEntity() {
   const [formData, setFormData] = useState({
     name: '',
     movies: '',
-    description: '',
-    weapons: '',
-    modus_operandi: '',
     motivation_background: '',
-    kill_count: '',
-    weakness: ''
+    kill_count: ''
   });
 
   const [updateSuccess, setUpdateSuccess] = useState(false); // State for tracking update success
@@ -55,12 +51,8 @@ function UpdateEntity() {
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
         <input type="text" name="movies" value={formData.movies} onChange={handleChange} placeholder="Movies (comma-separated)" required />
-        <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" required />
-        <input type="text" name="weapons" value={formData.weapons} onChange={handleChange} placeholder="Weapons (comma-separated)" required />
-        <input type="text" name="modus_operandi" value={formData.modus_operandi} onChange={handleChange} placeholder="Modus Operandi" required />
         <input type="text" name="motivation_background" value={formData.motivation_background} onChange={handleChange} placeholder="Motivation Background" required />
-        <input type="number" name="kill_count" value={formData.kill_count} onChange={handleChange} placeholder="Kill Count" required />
-        <input type="text" name="weakness" value={formData.weakness} onChange={handleChange} placeholder="Weakness" required />
+        <input type="text" name="kill_count" value={formData.kill_count} onChange={handleChange} placeholder="Kill Count" required />
         <button type="submit">Update Entity</button>
       </form>
     </div>

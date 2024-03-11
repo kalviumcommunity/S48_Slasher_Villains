@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import Landing from './Landing'; // Import your Landing component
-import './AddEntity.css'; // Import your CSS file for styling
+import Landing from './Landing'; 
+import './AddEntity.css'; 
 
 function AddEntity() {
   const [formData, setFormData] = useState({

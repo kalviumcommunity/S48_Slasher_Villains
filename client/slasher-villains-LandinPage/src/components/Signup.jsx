@@ -1,105 +1,99 @@
 import { useState } from "react";
-import './Signup.css'
-
-export default function Signup() {
-
-  const [field, setField] = useState({
-    firstName: "",
-    lastName: "",
+import './Signup.css';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
+function Signup() {
+  const [fields, setFields] = useState({
+    username: "",
     email: "",
-    phoneNumber: ""
+    phoneNumber: "",
+    password: ""
   });
 
-  const [submitted, setSubmit] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [validate, setValidation] = useState(false);
+  const navigate = useNavigate()
 
-  const validatePhoneNumber = (number) => {
-    const phoneNumberRegex = /^\d{10}$/;
-    return phoneNumberRegex.test(number);
-  };
-
-  const validateEmail = (email) => {
-    return email.includes("@");
-  };
-
-  const validateName = (name) => {
-    const nameRegex = /^[a-zA-Z.]{2,}$/;
-    return nameRegex.test(name);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (fields.username && fields.password && fields.email && fields.phoneNumber) {
+      try {
+        const response = await axios.post("http://localhost:3005/register", fields);
+        if (response.status === 201) {
+          // Automatically log in after successful registration
+          const loginResponse = await axios.post("http://localhost:3005/login", {
+            username: fields.username,
+            password: fields.password
+          });
+          if (loginResponse.status === 200) {
+            const token = loginResponse.headers['set-cookie'];
+            localStorage.setItem('token', token);
+             navigate('/');
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle signup error
+      }
+      setValidation(true);
+    }
+    setSubmitted(true);
   };
 
   return (
     <div className="form-container">
-      <form className="register-form" onSubmit={(e) => {
-        e.preventDefault();
-        if (
-          validateName(field.firstName) &&
-          validateName(field.lastName) &&
-          field.email &&
-          validateEmail(field.email) &&
-          field.phoneNumber &&
-          validatePhoneNumber(field.phoneNumber)
-        ) {
-          setValidation(true);
-        }
-        setSubmit(true);
-      }}>
-
-        {submitted && validate ? <div className="success-message">Registration successful!</div> : null}
-
+      <form className="register-form" onSubmit={handleSubmit}>
+        {submitted && validate && (
+          <div className="success-message">Signup successful!</div>
+        )}
         <input
-          id="first-name"
+          id="username"
           className="form-field"
           type="text"
-          placeholder="First Name"
-          name="firstName"
-          value={field.firstName}
-          onChange={(e) => { setField({ ...field, firstName: e.target.value }) }}
+          placeholder="Username"
+          name="username"
+          value={fields.username}
+          onChange={(e) => setFields({ ...fields, username: e.target.value })}
         />
-
-        {submitted && (!field.firstName || !validateName(field.firstName)) ? <span>Please enter a valid first name</span> : null}
-
-        <input
-          id="last-name"
-          className="form-field"
-          type="text"
-          placeholder="Last Name"
-          name="lastName"
-          value={field.lastName}
-          onChange={(e) => { setField({ ...field, lastName: e.target.value }) }}
-        />
-
-        {submitted && (!field.lastName || !validateName(field.lastName)) ? <span>Please enter a valid last name</span> : null}
-
+        {submitted && (!fields.username || fields.username.length < 4) && <span>Please enter a valid username (at least 4 characters)</span>}
         <input
           id="email"
           className="form-field"
-          type="text"
+          type="email"
           placeholder="Email"
           name="email"
-          value={field.email}
-          onChange={(e) => { setField({ ...field, email: e.target.value }) }}
+          value={fields.email}
+          onChange={(e) => setFields({ ...fields, email: e.target.value })}
         />
-
-        {submitted && !field.email ? <span>Please enter your email</span> : null}
-        {submitted && field.email && !validateEmail(field.email) ? <span>Please enter a valid email address</span> : null}
-
+        {submitted && !fields.email && <span>Please enter your email</span>}
         <input
-          id="Phone number"
+          id="phoneNumber"
           className="form-field"
-          type="text"
-          placeholder="Phone number"
-          name="phone number"
-          value={field.phoneNumber}
-          onChange={(e) => { setField({ ...field, phoneNumber: e.target.value }) }}
+          type="tel"
+          placeholder="Phone Number"
+          name="phoneNumber"
+          value={fields.phoneNumber}
+          onChange={(e) => setFields({ ...fields, phoneNumber: e.target.value })}
         />
-
-        {submitted && !field.phoneNumber ? <span>Please enter your phone number</span> : null}
-        {submitted && field.phoneNumber && !validatePhoneNumber(field.phoneNumber) ? <span>Please enter a valid 10-digit phone number</span> : null}
-
+        {submitted && !fields.phoneNumber && <span>Please enter your phone number</span>}
+        <input
+          id="password"
+          className="form-field"
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={fields.password}
+          onChange={(e) => setFields({ ...fields, password: e.target.value })}
+        />
+        {submitted && (!fields.password || fields.password.length < 6) && <span>Please enter a valid password (at least 6 characters)</span>}
+        
         <button className="form-field-button" type="submit">
-          Register
+          Sign Up
         </button>
       </form>
     </div>
   );
 }
+
+export default Signup;

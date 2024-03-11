@@ -5,8 +5,14 @@ import './Landing.css'; // Import your CSS file here if needed
 
 function Landing() {
   const [villains, setVillains] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+
     axios
       .get("http://localhost:3005/slashervillains")
       .then((response) => setVillains(response.data))
@@ -22,14 +28,28 @@ function Landing() {
       .catch((err) => console.log(err));
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    // Redirect to login or homepage
+    // For demonstration purposes, assuming the login page is '/'
+    window.location.href = '/';
+  };
+
   return (
     <div className="App">
       <header>
         <nav className="navbar">
           <h1>Slasher <span className="highlight">Villains</span></h1>
           <div className="buttons">
-            <Link to="/Login" className="login">Log In</Link>
-            <Link to="/Signup" className="signup">Sign Up</Link>
+            {isLoggedIn ? (
+              <button onClick={handleLogout} className="logout">Logout</button>
+            ) : (
+              <>
+                <Link to="/Login" className="login">Log In</Link>
+                <Link to="/Signup" className="signup">Sign Up</Link>
+              </>
+            )}
           </div>
         </nav>
         <p className='subheading'>Behind every great scream lies an even greater villain</p>
@@ -43,8 +63,12 @@ function Landing() {
               <p>Motivation Background: {villain.motivation_background} </p>
               <p>Kill Count: {villain.kill_count} </p>
               <div className="delete-update">
-                <button onClick={() => handleDelete(villain._id)} className='delete-btn'>Delete</button>
-                <Link to={`/update-entity/${villain._id}`} className="update-button">Update</Link>
+                {isLoggedIn && (
+                  <>
+                    <button onClick={() => handleDelete(villain._id)} className='delete-btn'>Delete</button>
+                    <Link to={`/update-entity/${villain._id}`} className="update-button">Update</Link>
+                  </>
+                )}
               </div>
             </div>
           ))}

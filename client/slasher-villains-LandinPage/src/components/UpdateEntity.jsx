@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Landing from './Landing'; // Import your Landing component
-import './UpdateEntity.css'; // Import your CSS file for styling
+import Landing from './Landing'; 
+import './UpdateEntity.css';
 
 function UpdateEntity() {
   const [formData, setFormData] = useState({

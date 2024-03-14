@@ -1,23 +1,30 @@
 import { useState } from "react";
 import './Login.css';
+import axios from 'axios';
 
 export default function Login() {
   const [credentials, setCredentials] = useState({
-    email: "",
+    username: "",
     password: ""
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [validated, setValidated] = useState(false);
 
-  const validateEmail = (email) => {
-    return email.includes("@");
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (credentials.email && credentials.password) {
-      // Your login logic goes here
+    if (credentials.username && credentials.password) {
+      try {
+        const response = await axios.post("http://localhost:3005/login", credentials);
+        const { data } = response;
+        if (data === 'Login successful') {
+          localStorage.setItem('token', response.headers['set-cookie'][0]);
+          // Redirect or handle login success
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle login error
+      }
       setValidated(true);
     }
     setSubmitted(true);
@@ -31,21 +38,18 @@ export default function Login() {
         )}
 
         <input
-          id="email"
+          id="username"
           className="form-field"
           type="text"
-          placeholder="Email"
-          name="email"
-          value={credentials.email}
+          placeholder="Username"
+          name="username"
+          value={credentials.username}
           onChange={(e) =>
-            setCredentials({ ...credentials, email: e.target.value })
+            setCredentials({ ...credentials, username: e.target.value })
           }
         />
-        {submitted && !credentials.email && (
-          <span>Please enter your email</span>
-        )}
-        {submitted && credentials.email && !validateEmail(credentials.email) && (
-          <span>Please enter a valid email address</span>
+        {submitted && !credentials.username && (
+          <span>Please enter your username</span>
         )}
 
         <input

@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Landing.css'; // Import your CSS file here if needed
+import { useNavigate } from 'react-router-dom';
 
 function Landing() {
   const [villains, setVillains] = useState([]);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate()
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+
     axios
       .get("http://localhost:3005/slashervillains")
       .then((response) => setVillains(response.data))
@@ -22,14 +29,26 @@ function Landing() {
       .catch((err) => console.log(err));
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    window.location.href = '/';
+  };
+
   return (
     <div className="App">
       <header>
         <nav className="navbar">
           <h1>Slasher <span className="highlight">Villains</span></h1>
           <div className="buttons">
-            <Link to="/Login" className="login">Log In</Link>
-            <Link to="/Signup" className="signup">Sign Up</Link>
+            {isLoggedIn ? (
+              <button onClick={handleLogout} className="logout">Logout</button>
+            ) : (
+              <>
+                <Link to="/Login" className="login">Log In</Link>
+                <Link to="/Signup" className="signup">Sign Up</Link>
+              </>
+            )}
           </div>
         </nav>
         <p className='subheading'>Behind every great scream lies an even greater villain</p>
@@ -43,13 +62,17 @@ function Landing() {
               <p>Motivation Background: {villain.motivation_background} </p>
               <p>Kill Count: {villain.kill_count} </p>
               <div className="delete-update">
-                <button onClick={() => handleDelete(villain._id)} className='delete-btn'>Delete</button>
-                <Link to={`/update-entity/${villain._id}`} className="update-button">Update</Link>
+                {isLoggedIn && (
+                  <>
+                    <button onClick={() => handleDelete(villain._id)} className='delete-btn'>Delete</button>
+                    <Link to={`/update-entity/${villain._id}`} className="update-button">Update</Link>
+                  </>
+                )}
               </div>
             </div>
           ))}
         <div className="add">
-          <Link to="/add-entity" className="add-entity-btn">Add New Entity</Link>
+          <Link to="/add-entity" onClick={()=>{navigate('/add-entity')}} className="add-entity-btn">Add New Entity</Link>
         </div>
       </div>
     </div>

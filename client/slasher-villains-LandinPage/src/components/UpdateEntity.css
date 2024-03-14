@@ -1,8 +1,6 @@
-/* UpdateEntity.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
 
-.update-entity {
+.update-entity{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,21 +8,20 @@
   font-family: "Metal Mania", system-ui;
 }
 
-.update-entity h2 {
+.update-entity h2{
   font-size: 36px;
   margin-bottom: 20px;
   font-family: "Metal Mania", system-ui;
   color: #8B0000;
 }
 
-.update-entity form {
+.update-entity form{
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.update-entity input,
-.update-entity textarea {
+.update-entity input, .update-entity textarea{
   width: 300px;
   margin: 10px;
   padding: 10px;
@@ -32,7 +29,7 @@
   font-family: "Metal Mania", system-ui;
 }
 
-.update-entity button {
+.update-entity button{
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -44,7 +41,7 @@
   font-family: "Metal Mania", system-ui;
 }
 
-.update-entity button:hover {
+.update-entity button:hover{
   color: black;
   background-color: #8B0000;
 }

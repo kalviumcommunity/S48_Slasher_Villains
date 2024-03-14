@@ -1,31 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
 
-body {
+body{
   background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
 }
 
-.App {
+.App{
   display: flex;
   flex-direction: column;
   height: 100vh;
   font-family: "Metal Mania", system-ui;
 }
 
-.navbar {
+.navbar{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-h1 {
+h1{
   letter-spacing: 3px;
   font-size: 60px;
   padding-left: 70px;
   margin: none;
 }
 
-p {
+p{
   display: flex;
   justify-content: center;
   align-items: end;
@@ -42,25 +42,25 @@ p {
   color: #8B0000;
 }
 
-.highlight {
+.highlight{
   color:#8B0000;
   font-size: 60px;
   font-family: "Metal Mania", system-ui;
 }
 
-.buttons {
+.buttons{
   margin-right: 20px;
 }
 
-button, .signup, .login, .add-entity-btn, .update-button {
+button, .signup, .login, .add-entity-btn, .update-button{
   margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 5px;
   background-color: white;
-  text-decoration: none; /* Remove default link underline */
-  cursor: pointer; /* Change cursor on hover */
-  display: inline-block; /* Ensure link behaves like a block element */
+  text-decoration: none; 
+  cursor: pointer;
+  display: inline-block;
   font-family: "Metal Mania", system-ui;
   color: rgb(0, 0, 0);
   border: none;

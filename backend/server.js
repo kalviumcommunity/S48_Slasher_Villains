@@ -29,17 +29,17 @@ const createEntitySchema = Joi.object({
   name: Joi.string().required(),
   movies: Joi.array().items(Joi.string()).required(),
   motivation_background: Joi.string().required(),
-  kill_count: Joi.number().integer().min(0).required()
+  kill_count: Joi.string().required()
 });
 
 // POST endpoint to create a new slasher villain
-app.post('/slashervillains', authenticateToken, async (req, res) => {
+app.post('/slashervillains', async (req, res) => {
   try {
+    // Convert comma-separated string to an array
+    req.body.movies = req.body.movies.split(',').map(movie => movie.trim());
+
     // Validate request body against schema
-    const { error, value } = createEntitySchema.validate(req.body);
-    if (error) {
-      return res.status(400).json();
-    }
+    const value = await createEntitySchema.validateAsync(req.body);
 
     // Create new slasher villain
     const newSlasherVillain = await SlasherVillainsModel.create(value);
@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // PUT endpoint to update a slasher villain
-app.put('/slashervillains/:id', authenticateToken, async (req, res) => {
+app.put('/slashervillains/:id', async (req, res) => {
   try {
     const updatedEntity = await SlasherVillainsModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedEntity);
@@ -69,7 +69,7 @@ app.put('/slashervillains/:id', authenticateToken, async (req, res) => {
 });
 
 // DELETE endpoint to delete a slasher villain
-app.delete('/slashervillains/:id', authenticateToken, async (req, res) => {
+app.delete('/slashervillains/:id', async (req, res) => {
   try {
     await SlasherVillainsModel.findByIdAndDelete(req.params.id);
     res.json({ message: 'Entity deleted successfully' });
@@ -78,7 +78,7 @@ app.delete('/slashervillains/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Register endpoint
+// Registration endpoint
 app.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -141,10 +141,6 @@ app.get('/logout', (req, res) => {
 function authenticateToken(req, res, next) {
   const token = req.cookies.token;
 
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-
   jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
     if (err) {
       return res.status(403).json({ message: 'Invalid token' });
@@ -155,9 +151,6 @@ function authenticateToken(req, res, next) {
 }
 
 // Protected route example
-app.get('/protected', authenticateToken, (req, res) => {
-  res.json({ message: 'This is a protected route' });
-});
 
 // GET endpoint to retrieve all slasher villains
 app.get('/slashervillains', async (req, res) => {
@@ -167,6 +160,19 @@ app.get('/slashervillains', async (req, res) => {
     res.json(slasherVillains);
   } catch (err) {
     // Handle any errors that occur during the retrieval process
+    res.status(500).json({ message: err.message });
+  }
+});
+
+app.get('/slashervillains/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await SlasherVillainsModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });

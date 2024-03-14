@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Landing.css'; // Import your CSS file here if needed
+import { useNavigate } from 'react-router-dom';
 
 function Landing() {
   const [villains, setVillains] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const navigate = useNavigate()
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -31,8 +32,6 @@ function Landing() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    // Redirect to login or homepage
-    // For demonstration purposes, assuming the login page is '/'
     window.location.href = '/';
   };
 
@@ -73,7 +72,7 @@ function Landing() {
             </div>
           ))}
         <div className="add">
-          <Link to="/add-entity" className="add-entity-btn">Add New Entity</Link>
+          <Link to="/add-entity" onClick={()=>{navigate('/add-entity')}} className="add-entity-btn">Add New Entity</Link>
         </div>
       </div>
     </div>

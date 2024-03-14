@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Landing from './Landing'; 
+// import Landing from './Landing'; 
 import './UpdateEntity.css';
+import { useNavigate } from 'react-router-dom';
 
 function UpdateEntity() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
     movies: '',
@@ -12,38 +14,41 @@ function UpdateEntity() {
     kill_count: ''
   });
 
-  const [updateSuccess, setUpdateSuccess] = useState(false); // State for tracking update success
+  // const [updateSuccess, setUpdateSuccess] = useState(false); // State for tracking update success
   const { id } = useParams();
 
   useEffect(() => {
     axios
       .get(`http://localhost:3005/slashervillains/${id}`)
       .then((response) => {
-        setFormData(response.data);
+        const { name, movies, motivation_background, kill_count } = response.data;
+        setFormData({ name, movies: movies.join(', '), motivation_background, kill_count });
       })
       .catch((err) => console.log(err));
   }, [id]);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.put(`http://localhost:3005/slashervillains/${id}`, formData)
       .then((response) => {
         console.log('Entity updated successfully:', response.data);
-        setUpdateSuccess(true); // Set state to true for successful update
+        // setUpdateSuccess(true); // Set state to true for successful update
+        navigate('/')
+        
       })
       .catch((err) => {
         console.error('Error updating entity:', err);
       });
-  };
+  };  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Conditionally render the Landing component if updateSuccess is true
-  if (updateSuccess) {
-    return <Landing />;
-  }
+  // if (updateSuccess) {
+  //   return <Landing />;
+  // }
 
   return (
     <div className="update-entity">

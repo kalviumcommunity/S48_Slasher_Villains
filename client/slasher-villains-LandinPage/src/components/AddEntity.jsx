@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
-import Landing from './Landing'; 
+// import Landing from './Landing'; 
 import './AddEntity.css'; 
-
+import { useNavigate } from 'react-router-dom';
 function AddEntity() {
   const [formData, setFormData] = useState({
     name: '',
@@ -11,7 +11,8 @@ function AddEntity() {
     kill_count: ''
   });
 
-  const [entityAdded, setEntityAdded] = useState(false); // State for tracking form submission
+  // const [entityAdded, setEntityAdded] = useState(false); // State for tracking form submission
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +23,8 @@ function AddEntity() {
     axios.post('http://localhost:3005/slashervillains', formData)
       .then((response) => {
         console.log('Entity added successfully:', response.data);
-        setEntityAdded(true); // Set state to true for successful form submission
+        // setEntityAdded(true); // Set state to true for successful form submission
+        navigate('/')
       })
       .catch((err) => {
         console.log('Error adding entity:', err);
@@ -30,9 +32,7 @@ function AddEntity() {
   };
 
   // Conditionally render the Landing component if entityAdded is true
-  if (entityAdded) {
-    return <Landing />;
-  }
+
 
   return (
     <div className="add-entity">

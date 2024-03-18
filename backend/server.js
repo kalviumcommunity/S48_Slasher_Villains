@@ -32,6 +32,11 @@ const createEntitySchema = Joi.object({
   kill_count: Joi.string().required()
 });
 
+// Endpoint for landing page
+app.get('/landing', (req, res) => {
+  res.sendFile(path.join(__dirname, 'landing.jsx')); // Assuming you have a landing.html file
+});
+
 // POST endpoint to create a new slasher villain
 app.post('/slashervillains', async (req, res) => {
   try {
@@ -122,10 +127,10 @@ app.post('/login', async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ username: user.username }, JWT_SECRET);
+    const Username = jwt.sign({ username: user.username }, JWT_SECRET);
 
     // Set token to cookie
-    res.cookie('token', token, { httpOnly: true }).send('Login successful');
+    res.cookie("Username", Username, { httpOnly: true }).send('Login successful');
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

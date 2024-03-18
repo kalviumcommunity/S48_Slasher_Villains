@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Landing.css'; // Import your CSS file here if needed
-import { useNavigate } from 'react-router-dom';
+import './Landing.css';
 
 function Landing() {
   const [villains, setVillains] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -32,7 +32,7 @@ function Landing() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    window.location.href = '/';
+    navigate('/');
   };
 
   return (
@@ -43,12 +43,7 @@ function Landing() {
           <div className="buttons">
             {isLoggedIn ? (
               <button onClick={handleLogout} className="logout">Logout</button>
-            ) : (
-              <>
-                <Link to="/Login" className="login">Log In</Link>
-                <Link to="/Signup" className="signup">Sign Up</Link>
-              </>
-            )}
+            ) : null}
           </div>
         </nav>
         <p className='subheading'>Behind every great scream lies an even greater villain</p>
@@ -60,7 +55,7 @@ function Landing() {
               <p className='name'>Name:  {villain.name} </p>
               <p>Movies:  {villain.movies.join(', ')}</p>
               <p>Motivation Background: {villain.motivation_background} </p>
-              <p>Kill Count: {villain.kill_count} </p>
+              <p>Kill Count: {villain.kill_count}</p>
               <div className="delete-update">
                 {isLoggedIn && (
                   <>
@@ -71,9 +66,11 @@ function Landing() {
               </div>
             </div>
           ))}
-        <div className="add">
-          <Link to="/add-entity" onClick={()=>{navigate('/add-entity')}} className="add-entity-btn">Add New Entity</Link>
-        </div>
+        {isLoggedIn && (
+          <div className="add">
+            <Link to="/add-entity" className="add-entity-btn">Add New Entity</Link>
+          </div>
+        )}
       </div>
     </div>
   );

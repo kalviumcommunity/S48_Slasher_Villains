@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './Login.css';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export default function Login() {
+  const navigate = useNavigate()
   const [credentials, setCredentials] = useState({
-    username: "",
+    username: Cookies.get('loginUsername') || "",
     password: ""
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [validated, setValidated] = useState(false);
+
+  useEffect(() => {
+    // Save username to cookie when it changes
+    Cookies.set('loginUsername', credentials.username);
+  }, [credentials.username]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,8 +26,9 @@ export default function Login() {
         const response = await axios.post("http://localhost:3005/login", credentials);
         const { data } = response;
         if (data === 'Login successful') {
-          localStorage.setItem('token', response.headers['set-cookie'][0]);
-          // Redirect or handle login success
+          navigate('/')
+          const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
+          document.cookie = `token=${token}; path=/`;
         }
       } catch (error) {
         console.error(error);

@@ -43,9 +43,6 @@ function Signup() {
             localStorage.setItem('token', token);
             navigate('/landing');
             Cookies.set('token1', response.data.token); 
-
-
-           
           }else{
             'bruh'
           }

@@ -24,7 +24,7 @@ function AddEntity() {
       .then((response) => {
         console.log('Entity added successfully:', response.data);
         // setEntityAdded(true); // Set state to true for successful form submission
-        navigate('/')
+        navigate('/landing')
       })
       .catch((err) => {
         console.log('Error adding entity:', err);

@@ -33,7 +33,7 @@ function UpdateEntity() {
       .then((response) => {
         console.log('Entity updated successfully:', response.data);
         // setUpdateSuccess(true); // Set state to true for successful update
-        navigate('/')
+        navigate('/landing')
         
       })
       .catch((err) => {

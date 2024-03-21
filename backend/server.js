@@ -103,7 +103,15 @@ app.post('/register', async (req, res) => {
       password: hashedPassword
     });
 
-    res.status(201).json({ message: 'User created successfully' });
+    const token = jwt.sign({ username: username }, JWT_SECRET);
+
+    // Set token to cookie
+    res.cookie("token", token)
+    // res.json({
+    //   success: true,
+    //   token
+    // })
+    res.status(201).json({ message: 'User created successfully',token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -127,10 +135,14 @@ app.post('/login', async (req, res) => {
     }
 
     // Generate JWT token
-    const Username = jwt.sign({ username: user.username }, JWT_SECRET);
+    const token = jwt.sign({ username: user.username }, JWT_SECRET);
 
     // Set token to cookie
-    res.cookie("Username", Username, { httpOnly: true }).send('Login successful');
+    res.cookie("token", token)
+    res.json({
+      success: true,
+      token
+    })
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

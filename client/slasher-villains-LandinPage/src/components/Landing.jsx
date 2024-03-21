@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from "js-cookie"
 import './Landing.css';
 
 function Landing() {
@@ -30,6 +31,12 @@ function Landing() {
   };
 
   const handleLogout = () => {
+    Cookies.remove("loginUsername")
+    Cookies.remove("signupUsername")
+    Cookies.remove("token")
+    Cookies.remove("token1")
+
+
     localStorage.removeItem('token');
     setIsLoggedIn(false);
     navigate('/');

@@ -24,12 +24,14 @@ export default function Login() {
     if (credentials.username && credentials.password) {
       try {
         const response = await axios.post("http://localhost:3005/login", credentials);
-        const { data } = response;
-        if (data === 'Login successful') {
-          navigate('/')
-          const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
-          document.cookie = `token=${token}; path=/`;
-        }
+        
+          navigate('/landing')
+          // const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
+          // document.cookie = `token=${token}; path=/`;
+          localStorage.setItem("token",response.data.token)
+          Cookies.set('token1', response.data.token); // Set the token as a cookie
+
+      
       } catch (error) {
         console.error(error);
         // Handle login error

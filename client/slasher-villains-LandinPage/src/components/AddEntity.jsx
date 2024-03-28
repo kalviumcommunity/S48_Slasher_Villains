@@ -2,13 +2,15 @@ import { useState } from 'react';
 import axios from 'axios';
 // import Landing from './Landing'; 
 import './AddEntity.css'; 
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 function AddEntity() {
   const [formData, setFormData] = useState({
     name: '',
     movies: '',
     motivation_background: '',
-    kill_count: ''
+    kill_count: '',
+    created_by: Cookies.get("loginUsername")
   });
 
   // const [entityAdded, setEntityAdded] = useState(false); // State for tracking form submission
@@ -30,9 +32,6 @@ function AddEntity() {
         console.log('Error adding entity:', err);
       });
   };
-
-  // Conditionally render the Landing component if entityAdded is true
-
 
   return (
     <div className="add-entity">

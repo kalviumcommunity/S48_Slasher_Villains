@@ -28,6 +28,8 @@ export default function Login() {
           navigate('/landing')
           // const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
           // document.cookie = `token=${token}; path=/`;
+          localStorage.setItem("userID", response.data.userId);
+          localStorage.getItem("userID");
           localStorage.setItem("token",response.data.token)
           Cookies.set('token1', response.data.token); // Set the token as a cookie
 

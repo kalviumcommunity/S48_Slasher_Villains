@@ -100,3 +100,23 @@ button:hover, .signup:hover, .login:hover, .add-entity-btn:hover, .update-button
   border: 2px solid white;
   margin: 20px;
 }
+
+select {
+  padding: 6px;
+  font-size: 15px;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  margin-bottom: 20px; 
+}
+
+select option {
+  padding: 8px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
+}
+
+select option:checked {
+  background-color: #f0f0f0;
+}

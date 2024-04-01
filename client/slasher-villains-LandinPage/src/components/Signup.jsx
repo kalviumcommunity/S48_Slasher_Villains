@@ -37,9 +37,9 @@ function Signup() {
             username: fields.username,
             password: fields.password
           });
-          // navigate('/landing');
           if (loginResponse.status === 200) {
             const token = loginResponse.data.token;
+            localStorage.setItem("username", response.data.username);
             localStorage.setItem('token', token);
             navigate('/landing');
             Cookies.set('token1', response.data.token); 

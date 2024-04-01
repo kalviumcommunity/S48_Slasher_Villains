@@ -20,21 +20,22 @@ mongoose.connect(mongoURI, {
   useUnifiedTopology: true
 }).then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
-
+  
 // Define a secret key for JWT
 const JWT_SECRET = '12345';
 
 // Joi schema for creating a new entity
 const createEntitySchema = Joi.object({
-  name: Joi.string().required(),
-  movies: Joi.array().items(Joi.string()).required(),
-  motivation_background: Joi.string().required(),
-  kill_count: Joi.string().required()
+  name: Joi.string().required(), 
+  movies: Joi.array().items(Joi.string()).required(), 
+  motivation_background: Joi.string().required(), 
+  kill_count: Joi.string().required(),
+  created_by: Joi.string().required()
 });
 
 // Endpoint for landing page
 app.get('/landing', (req, res) => {
-  res.sendFile(path.join(__dirname, 'landing.jsx')); // Assuming you have a landing.html file
+  res.sendFile(path.join(__dirname, 'landing.jsx'));
 });
 
 // POST endpoint to create a new slasher villain
@@ -58,10 +59,31 @@ app.post('/slashervillains', async (req, res) => {
 // User model schema
 const userSchema = new mongoose.Schema({
   username: String,
-  password: String
+  password: String,
 });
 
 const User = mongoose.model('User', userSchema);
+
+// Add a GET endpoint to retrieve all users
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Add a GET endpoint to retrieve entities created by a specific user
+app.get('/users/:userId/entities', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const entities = await SlasherVillainsModel.find({ created_by: userId });
+    res.json(entities);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // PUT endpoint to update a slasher villain
 app.put('/slashervillains/:id', async (req, res) => {
@@ -111,6 +133,14 @@ app.post('/register', async (req, res) => {
     //   success: true,
     //   token
     // })
+    res.json({
+      success: true,
+      message: "Signup successful",
+      username,
+      token,
+      userId: newUser._id,
+    });
+
     res.status(201).json({ message: 'User created successfully',token });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -143,6 +173,13 @@ app.post('/login', async (req, res) => {
       success: true,
       token
     })
+    res.json({
+      success: true,
+      message: "Login successful",
+      username,
+      token,
+      userId: newUser._id,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -177,19 +214,6 @@ app.get('/slashervillains', async (req, res) => {
     res.json(slasherVillains);
   } catch (err) {
     // Handle any errors that occur during the retrieval process
-    res.status(500).json({ message: err.message });
-  }
-});
-
-app.get('/slashervillains/:id', async (req, res) => {
-  try {
-    const userId = req.params.id;
-    const user = await SlasherVillainsModel.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
-  } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });

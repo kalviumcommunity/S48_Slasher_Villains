@@ -26,16 +26,16 @@ const JWT_SECRET = '12345';
 
 // Joi schema for creating a new entity
 const createEntitySchema = Joi.object({
-  name: Joi.string().required(), // Validation for entity name
-  movies: Joi.array().items(Joi.string()).required(), // Validation for movies array
-  motivation_background: Joi.string().required(), // Validation for motivation background
-  kill_count: Joi.string().required(),// Validation for kill count
+  name: Joi.string().required(), 
+  movies: Joi.array().items(Joi.string()).required(), 
+  motivation_background: Joi.string().required(), 
+  kill_count: Joi.string().required(),
   created_by: Joi.string().required()
 });
 
 // Endpoint for landing page
 app.get('/landing', (req, res) => {
-  res.sendFile(path.join(__dirname, 'landing.jsx')); // Assuming you have a landing.html file
+  res.sendFile(path.join(__dirname, 'landing.jsx'));
 });
 
 // POST endpoint to create a new slasher villain

@@ -6,10 +6,11 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SlasherVillainsModel = require('./models/slasher_villains');
+require('dotenv').config()
 
 const app = express();
 const port = 3005;
-const mongoURI = 'mongodb+srv://anavik:AnaviK%40Kalvium%402024@slashervillains.kvws8y6.mongodb.net/slasher_?retryWrites=true&w=majority&appName=SlasherVillains';
+const mongoURI = process.env.MONGODB_URI
 
 app.use(cors());
 app.use(express.json());

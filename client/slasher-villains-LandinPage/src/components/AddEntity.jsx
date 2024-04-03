@@ -22,7 +22,7 @@ function AddEntity() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3005/slashervillains', formData)
+    axios.post('https://s48-slasher-villains-4.onrender.com/slashervillains', formData)
       .then((response) => {
         console.log('Entity added successfully:', response.data);
         // setEntityAdded(true); // Set state to true for successful form submission

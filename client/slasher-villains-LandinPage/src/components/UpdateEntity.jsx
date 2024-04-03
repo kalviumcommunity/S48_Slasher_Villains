@@ -19,7 +19,7 @@ function UpdateEntity() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3005/slashervillains/${id}`)
+      .get(`https://s48-slasher-villains-4.onrender.com/slashervillains/${id}`)
       .then((response) => {
         const { name, movies, motivation_background, kill_count } = response.data;
         setFormData({ name, movies: movies.join(', '), motivation_background, kill_count });
@@ -29,7 +29,7 @@ function UpdateEntity() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:3005/slashervillains/${id}`, formData)
+    axios.put(`https://s48-slasher-villains-4.onrender.com/slashervillains/${id}`, formData)
       .then((response) => {
         console.log('Entity updated successfully:', response.data);
         // setUpdateSuccess(true); // Set state to true for successful update

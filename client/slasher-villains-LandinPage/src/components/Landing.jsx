@@ -18,19 +18,19 @@ function Landing() {
     }
 
     axios
-      .get('http://localhost:3005/slashervillains')
+      .get('https://s48-slasher-villains-4.onrender.com/slashervillains')
       .then((response) => setVillains(response.data))
       .catch((err) => console.log(err));
 
     axios
-      .get('http://localhost:3005/users')
+      .get('https://s48-slasher-villains-4.onrender.com/users')
       .then((response) => setUsers(response.data))
       .catch((err) => console.log(err));
   }, []);
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:3005/slashervillains/${id}`)
+      .delete(`https://s48-slasher-villains-4.onrender.com/slashervillains/${id}`)
       .then(() => {
         setVillains(villains.filter((villain) => villain._id !== id));
       })

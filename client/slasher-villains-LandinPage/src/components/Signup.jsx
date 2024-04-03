@@ -31,9 +31,9 @@ function Signup() {
 
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await axios.post("http://localhost:3005/register", fields);
+        const response = await axios.post("https://s48-slasher-villains-4.onrender.com/register", fields);
         if (response.status === 201) {
-          const loginResponse = await axios.post("http://localhost:3005/login", {
+          const loginResponse = await axios.post("https://s48-slasher-villains-4.onrender.com/login", {
             username: fields.username,
             password: fields.password
           });

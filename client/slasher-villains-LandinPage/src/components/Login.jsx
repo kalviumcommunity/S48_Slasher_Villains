@@ -23,7 +23,7 @@ export default function Login() {
     e.preventDefault();
     if (credentials.username && credentials.password) {
       try {
-        const response = await axios.post("http://localhost:3005/login", credentials);
+        const response = await axios.post("https://s48-slasher-villains-4.onrender.com/login", credentials);
         
           navigate('/landing')
           // const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];

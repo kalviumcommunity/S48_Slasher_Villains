@@ -4,6 +4,7 @@ import axios from 'axios';
 import './AddEntity.css'; 
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+
 function AddEntity() {
   const [formData, setFormData] = useState({
     name: '',
@@ -38,7 +39,7 @@ function AddEntity() {
       <form onSubmit={handleSubmit}>
         <h2>Add New Entity</h2>
         <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
-        <input type="text" name="movies" value={formData.movies} onChange={handleChange} placeholder="Movies (comma-separated)" required />
+        <input type="text" name="movies" value={formData.movies} onChange={handleChange} placeholder="Movies" required />
         <input type="text" name="motivation_background" value={formData.motivation_background} onChange={handleChange} placeholder="Motivation Background" required />
         <input type="text" name="kill_count" value={formData.kill_count} onChange={handleChange} placeholder="Kill Count" required />
         <button type="submit">Add Entity</button>

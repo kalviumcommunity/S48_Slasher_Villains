@@ -84,7 +84,7 @@ function Landing() {
               <p>Motivation Background: {villain.motivation_background} </p>
               <p>Kill Count: {villain.kill_count}</p>
               <div className="delete-update">
-                {isLoggedIn && (
+                {isLoggedIn  && (
                   <>
                     <button onClick={() => handleDelete(villain._id)} className="delete-btn">
                       Delete

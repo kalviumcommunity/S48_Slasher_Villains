@@ -1,1 +1,1 @@
-deployed link: https://slasher1villains.pages.dev/
+deployed link: https://slasher-villains.pages.dev/

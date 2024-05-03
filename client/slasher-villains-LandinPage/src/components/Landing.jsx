@@ -66,14 +66,7 @@ function Landing() {
           </div>
         </nav>
         <p className="subheading">Behind every great scream lies an even greater villain</p>
-        <select onChange={handleUserChange} value={selectedUser}>
-          <option value="">All Users</option>
-          {users.map((user) => (
-            <option key={user._id} value={user.created_by}>
-              {user.username}
-            </option>
-          ))}
-        </select>
+
       </header>
       <div className="body">
         {
